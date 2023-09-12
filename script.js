@@ -2,6 +2,7 @@ let computerScore = 0;
 
 let playerScore = 0;
 
+
 function getComputerChoice() {
     randNum = Math.floor(Math.random() * 3) + 1;
     switch (randNum) {
@@ -14,51 +15,89 @@ function getComputerChoice() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
+function itemPicked() {
+    resetIconBackground();
+    let playerSelection = this.dataset.pick.toLowerCase();
+    this.firstChild.style.backgroundColor = "red";
+    playRound(playerSelection);
+}
+
+function playRound(playerSelection) {
+    computerSelection = getComputerChoice();
+    const selectedIcon = document.querySelector(`#${computerSelection}`);
+    selectedIcon.style.backgroundColor = "red";
+    uppercasePlayerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    uppercaseComputerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
 
     if ((playerSelection == "rock" && computerSelection == "scissors") || 
     (playerSelection == "paper" && computerSelection == "rock") || 
     (playerSelection == "scissors" && computerSelection == "paper")) {
         playerScore++;
-        return `You win! ${playerSelection} beats ${computerSelection}.` 
-    } else if (playerSelection == computerSelection) {
-        return "You Draw!"
+        displayRoundMessage(`${uppercasePlayerSelection} beats ${uppercaseComputerSelection}. You Win!`);
+    } else if (playerSelection === computerSelection) {
+        displayRoundMessage(`${uppercasePlayerSelection} draws ${uppercaseComputerSelection}. You draw!`);
     } else {
         computerScore++;
-        return `You loose! ${playerSelection} looses against ${computerSelection}.`
+        displayRoundMessage(`${uppercasePlayerSelection} looses against ${uppercaseComputerSelection}. You loose!`);
     }
+    updateScores();
 }
 
-function getPlayerChoice() {
-    return prompt("rock, paper, scissors. Tippe deine Wahl");
+function displayRoundMessage(message) {
+    const roundMessageElement = document.querySelector(".info-text");
+    roundMessageElement.textContent = message;
 }
 
-function getFinalResult() {
-    if (playerScore > computerScore) {
-        return `You won the Game! Player: ${playerScore} Computer: ${computerScore}.`;
-    } else if (playerScore < computerScore) {
-        return `You lost the Game! Player: ${playerScore} Computer: ${computerScore}.`;
-    } else {
-        return `You drawed the game! Player: ${playerScore} Computer: ${computerScore}.`;
+function updateScores() {
+    const userScoreElement = document.querySelector("#user-score");
+    const computerScoreElement = document.querySelector("#computer-score");
+    userScoreElement.textContent = `Score: ${playerScore}`;
+    computerScoreElement.textContent = `Score: ${computerScore}`;
+    determineWinner();
+}
+
+function determineWinner() {
+    const finalText = document.querySelector("#final-text");
+    if (playerScore == 5) {
+        finalText.textContent = "Congratulations! You Won.";
+        endGame();
     }
+    if (computerScore == 5) {
+        finalText.textContent = "Too bad! The computer wins.";
+        endGame();
+    }
+
 }
 
-function printScore() {
-    console.log(`Player: ${playerScore} Computer: ${computerScore}.`);
+function endGame() {
+    buttons.forEach(button => button.classList.add("no-hover"));
+    restartButton.style.display = "block";
 }
 
-function game() {
-    computerScore = 0;
+function resetIconBackground() {
+    const icons = Array.from(document.querySelectorAll(".icon"));
+    icons.forEach(icon => icon.style.backgroundColor = "transparent");
+}
+
+function resetGame() {
+    restartButton.style.display = "none";
     playerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let computerChoice = getComputerChoice();
-        let playerChoice = getPlayerChoice();
-        console.log(playRound(playerChoice, computerChoice));
-        printScore();
-    }
-    let result = getFinalResult();
-    console.log(result)
+    computerScore = 0;
+    buttons.forEach(button => button.classList.remove("no-hover"));
+    updateScores();
+    resetIconBackground();
+    const finalText = document.querySelector("#final-text");
+    finalText.textContent = "First to Five wins!";
+    
 }
 
-game();
+
+
+const buttons = Array.from(document.querySelectorAll(".ui-button"));
+buttons.forEach(button => button.addEventListener("click", itemPicked));
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", resetGame);
+
+
+
+

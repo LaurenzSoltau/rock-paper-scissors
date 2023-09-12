@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <script src="script.js"></script>
+    <h1>Rock, Paper, Scissors</h1>
+    <h2 id="final-text">First to Five wins!</h2>
+
+    <div class="main-section">
+        <div class="container">
+            <div class="score-container">
+                <img class="player-icon" src="img/benutzer.png" alt="an icon of a person">
+                <span class="score" id="user-score">Score: 0</span>
+            </div>
+            <div class="icon-container">     
+                <button class="ui-button"  data-pick="rock"><img class="icon usable" src="img/rock.png" alt="rock from the game rock,paper,scissors"></button>
+                <button class="ui-button" data-pick="paper"><img class="icon usable" src="img/hand.png" alt="paper from the game rock,paper,scissors"></button>
+                <button class="ui-button" data-pick="scissors"><img class="icon usable" src="img/scissors.png" alt="scissor from the game rock,paper,scissors"></button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="score-container">
+                <img class="player-icon" src="img/roboter.png" alt="icon of a robot">
+                <span class="score" id="computer-score">Score: 0</span>
+            </div>
+            <div class="icon-container">
+                <button disabled><img id="rock" class="icon" src="img/rock.png" alt="rock from the game rock,paper,scissors"></button>
+                <button disabled><img id="paper" class="icon" src="img/hand.png" alt="paper from the game rock,paper,scissors"></button>
+                <button disabled><img id="scissors" class="icon" src="img/scissors.png" alt="scissor from the game rock,paper,scissors"></button>
+            </div>
+        </div>
+    </div>
+    <div class="lower-section">
+        <h3 class="info-text">Computer wins this Round!</h3>
+        <button id="restart">Restart Game</button>
+    </div>
 </body>
 </html>
