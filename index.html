@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -14,16 +14,16 @@
       <div class="score" id="computer-score">0 Computer Score</div>
     </div>
     <div class="main">
-      <img class="symbol" src="./images/rock.png" alt="" />
-      <img class="symbol" src="./images/paper.png" alt="" />
-      <img class="symbol" src="./images/scissors.png" alt="" />
+      <img class="symbol hover" data-id="0" src="./images/rock.png" alt="" />
+      <img class="symbol hover" data-id="1" src="./images/paper.png" alt="" />
+      <img class="symbol hover" data-id="2" src="./images/scissors.png" alt="" />
     </div>
     <div class="lower">
       <div class="choice-box">
         <div class="choice">Players Choice</div>
         <div id="player-choice" class="choice-img-container"></div>
       </div>
-      <div class="info-text">... beats .... You won this round!</div>
+      <div class="info-text">Click a symbol to start the game!</div>
       <div class="choice-box">
         <div class="choice">Computers Choice</div>
         <div id="computer-choice" class="choice-img-container"></div>
